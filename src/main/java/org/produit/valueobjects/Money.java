@@ -34,4 +34,20 @@ public record Money(BigDecimal amount, String currency) {
         return new Money(this.amount.add(other.amount), this.currency);
     }
 
+    public Money applyPercentageDiscount(BigDecimal percentage) {
+        if (percentage == null ||
+                percentage.compareTo(BigDecimal.valueOf(0.1)) < 0 ||
+                percentage.compareTo(BigDecimal.valueOf(100)) > 0) {
+            throw new InvalidMoneyOperationException("le pourcentage est compris entre 0.1 and 100");
+        }
+
+        BigDecimal discountFactor = BigDecimal.ONE.subtract(
+                percentage.divide(BigDecimal.valueOf(100))
+        );
+
+        BigDecimal newAmount = this.amount.multiply(discountFactor);
+
+        return new Money(newAmount, this.currency);
+    }
+
 }
