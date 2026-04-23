@@ -11,6 +11,19 @@ public class Product {
     private final UUID id;
     private final SKU sku;
     private final String name;
+
+    public SKU getSku() {
+        return sku;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public Money getPrice() {
+        return price;
+    }
+
     private Money price;
 
     public Product(SKU sku, String name, Money price) {
